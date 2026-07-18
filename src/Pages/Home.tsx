@@ -3,6 +3,8 @@ import { TypeAnimation } from "react-type-animation";
 // 📸 Cambia esta ruta por la de tu foto de perfil real
 import ProfilePic from "../assets/images/profile.jpg";
 
+import TechStack from "../components/ui/TechStack";
+
 const Home = () => {
  return (
     <section 
@@ -59,7 +61,11 @@ const Home = () => {
       </motion.div>
 
       {/* 💡 Elemento visual de fondo (Decorativo sutil para que no quede totalmente plano) */}
+
+      <TechStack/>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#6320EE]/5 rounded-full blur-[120px] pointer-events-none" />
+
+
     </section>
   );
 }
