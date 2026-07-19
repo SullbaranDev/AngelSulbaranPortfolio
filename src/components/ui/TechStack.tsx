@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 // Importamos los iconos específicos de React Icons (usando la colección 'Si' - Simple Icons)
 import { SiHtml5, SiJavascript, SiReact, SiTypescript, SiTailwindcss, SiVite } from "react-icons/si";
 import { FaCss3Alt } from "react-icons/fa";
+import { RiNextjsFill } from "react-icons/ri";
 
 // 1. Definimos la estructura de datos para nuestro stack
 const techs = [
@@ -10,9 +11,9 @@ const techs = [
   { id: 3, name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
   { id: 4, name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
   { id: 5, name: "React", icon: SiReact, color: "#61DAFB" },
+  { id: 5, name: "NextJs", icon: RiNextjsFill, color: "#000000" },
   // He añadido Tailwind y Vite que suelen ir de la mano con React modernos
   { id: 6, name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
-  { id: 7, name: "Vite", icon: SiVite, color: "#646CFF" },
 ];
 
 // 2. Variantes de animación para Framer Motion (entrada escalonada)

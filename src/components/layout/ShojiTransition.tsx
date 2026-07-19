@@ -13,10 +13,10 @@ export default function ShojiTransition({ isActive, onClosed }: ShojiTransitionP
   const [isFullyClosed, setIsFullyClosed] = useState(false);
   const [isFullyOpened, setIsFullyOpened] = useState(true);
 
-  // ⚡ Duración de la transición de las puertas (Más rápida)
+  // ⚡ Duración de la transición de las puertas
   const DOOR_DURATION = 1.0;
   
-  // ⏱️ Tiempo que el logo se queda fijo antes de abrir las puertas (Más rápido)
+  // ⏱️ Tiempo que el logo se queda fijo antes de abrir las puertas
   const HOLD_TIME = 0.6; 
 
   if (isActive && isFullyOpened) {
@@ -26,18 +26,22 @@ export default function ShojiTransition({ isActive, onClosed }: ShojiTransitionP
   return (
     <div className={`fixed inset-0 z-50 flex w-screen h-screen overflow-hidden ${isActive ? "pointer-events-auto" : "pointer-events-none"}`}>
       
-      {/* ⬜ FONDO BLANCO ANIMADO CON DESVANECIMIENTO RÁPIDO */}
-      <AnimatePresence>
-        {!isFullyOpened && (
-          <motion.div 
-            className="absolute inset-0 bg-white z-0 w-full h-full pointer-events-none"
-            initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }} // Desvanecimiento en 0.3s
-          />
-        )}
-      </AnimatePresence>
+      {/* ⬜ FONDO BLANCO: Sincronizado exactamente con el inicio del movimiento de las puertas */}
+      <motion.div 
+        className="absolute inset-0 bg-white z-0 w-full h-full pointer-events-none"
+        initial={{ opacity: 0 }}
+        animate={{ 
+          opacity: isActive ? 1 : 0 
+        }}
+        transition={{ 
+          // Al cerrar (isActive true) aparece rápido. 
+          // Al abrir (isActive false) se desvanece de forma óptima.
+          duration: isActive ? 0.2 : 0.3, 
+          ease: "easeOut",
+          // 💡 Clave: Espera exactamente el mismo tiempo de espera que las puertas antes de empezar a desaparecer
+          delay: isActive ? 0 : HOLD_TIME 
+        }}
+      />
 
       {/* Puerta izquierda */}
       <motion.div
@@ -70,7 +74,7 @@ export default function ShojiTransition({ isActive, onClosed }: ShojiTransitionP
         }}
       />
 
-      {/* Contenedor del Logo y Spinner (Centrado absoluto) */}
+      {/* Contenedor del Logo y Spinner */}
       <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
         <AnimatePresence>
           {isActive && (
@@ -88,7 +92,7 @@ export default function ShojiTransition({ isActive, onClosed }: ShojiTransitionP
               }}
               transition={{ duration: 0.25, ease: "easeInOut" }}
             >
-              {/* Spinner circular (Gira un poco más rápido para hacer juego con el ritmo) */}
+              {/* Spinner circular */}
               <motion.div 
                 className="absolute rounded-full border-4 border-[#6320EE]/10 border-t-[#6320EE]"
                 style={{ 
